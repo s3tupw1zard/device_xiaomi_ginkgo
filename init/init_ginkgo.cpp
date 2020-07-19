@@ -60,6 +60,7 @@ void vendor_load_properties()
     if (device_region == "Global_B" && device_hwversion == "18.39.0") {
         device = "willow";
         model = "Redmi Note 8T";
+        property_override("org.extendedui.device", device);
     } else {
         device = "ginkgo";
         model = "Redmi Note 8";
