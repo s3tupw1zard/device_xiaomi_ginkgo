@@ -38,6 +38,14 @@ void property_override(string prop, string value)
         __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
 }
 
+void property_override_multifp(char const buildfp[], char const systemfp[],
+                               char const bootimagefp[], char const vendorfp[],
+                               char const value[]) {
+  property_override(buildfp, value);
+  property_override(systemfp, value);
+  property_override(bootimagefp, value);
+  property_override(vendorfp, value);
+}
 
 	/* From Magisk@jni/magiskhide/hide_utils.c */
 static const char *snet_prop_key[] = {
@@ -109,6 +117,11 @@ void vendor_load_properties()
         property_override(string("ro.") + prop + string("build.product"), device);
     }
 
+  property_override_multifp(
+      "ro.build.fingerprint", "ro.vendor.build.fingerprint",
+      "ro.system.build.fingerprint", "ro.bootimage.build.fingerprint",
+      "google/coral/coral:11/RP1A.201005.004/6782484:user/release-keys");
+      
     // Set hardware SKU prop
     property_override("ro.boot.product.hardware.sku", device);
 
